@@ -65,21 +65,21 @@
 <script>
     function confirmDelete(studentId, studentName) {
         if (confirm(`Are you sure you want to delete ${studentName}?`)) {
-            // Send AJAX request to delete the student
+           
             fetch(`{% url 'delete_student' 0 %}`.replace('0', studentId), {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token
+                    'X-CSRFToken': '{{ csrf_token }}',  
                 },
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Remove the student's row from the table
+                   
                     document.getElementById(`student-row-${studentId}`).remove();
-                    alert(data.message);  // Display success message
+                    alert(data.message);  
                 } else {
-                    alert(data.error);  // Display error message
+                    alert(data.error);  
                 }
             })
             .catch(error => console.error('Error:', error));

@@ -26,13 +26,13 @@
         let isValid = true;
         const studentForm = document.getElementById('studentForm');
 
-        // Check if all input fields are filled out
+        
         Array.from(studentForm.elements).forEach(input => {
             if (input.type !== "submit" && input.type !== "button" && input.value.trim() === "") {
                 isValid = false;
-                input.classList.add('is-invalid');  // Add Bootstrap class for invalid input
+                input.classList.add('is-invalid');  
             } else {
-                input.classList.remove('is-invalid');  // Remove invalid class if input is valid
+                input.classList.remove('is-invalid'); 
             }
         });
 
@@ -40,7 +40,7 @@
             alert('Please fill out all fields before submitting.');
         }
 
-        return isValid; // Prevent form submission if not valid
+        return isValid; 
     }
 </script>
 

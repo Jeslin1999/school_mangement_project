@@ -91,11 +91,11 @@
 
 <script>
     function openDeleteModal(staffId, staffName) {
-        // Set the form action URL dynamically to include the staff ID
+        
         document.getElementById('deleteForm').action = "{% url 'delete_staff' 0 %}".replace('0', staffId);
-        // Display the staff name in the modal
+        
         document.getElementById('staffName').innerText = staffName;
-        // Show the modal
+       
         $('#deleteModal').modal('show');
     }
 </script>

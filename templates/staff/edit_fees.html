@@ -32,24 +32,24 @@
         let isValid = true;
         const form = document.getElementById('editFeesForm');
 
-        // Check if all input fields are filled out
+        
         Array.from(form.elements).forEach(input => {
             if (input.type !== "submit" && input.type !== "button") {
                 if (input.value.trim() === "") {
                     isValid = false;
-                    input.classList.add('is-invalid');  // Add Bootstrap class for invalid input
-                    // Create and show invalid feedback
+                    input.classList.add('is-invalid');  
+                   
                     let feedback = input.nextElementSibling;
                     if (feedback) {
-                        feedback.textContent = 'This field is required.'; // Custom message
-                        feedback.style.display = 'block'; // Show feedback
+                        feedback.textContent = 'This field is required.';
+                        feedback.style.display = 'block'; 
                     }
                 } else {
-                    input.classList.remove('is-invalid');  // Remove invalid class if input is valid
-                    // Hide feedback if the input is valid
+                    input.classList.remove('is-invalid');  
+                    
                     let feedback = input.nextElementSibling;
                     if (feedback) {
-                        feedback.style.display = 'none'; // Hide feedback
+                        feedback.style.display = 'none'; 
                     }
                 }
             }
@@ -59,7 +59,7 @@
             alert('Please fill out all fields before submitting.');
         }
 
-        return isValid; // Prevent form submission if not valid
+        return isValid; 
     }
 </script>
 

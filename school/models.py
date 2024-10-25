@@ -63,7 +63,7 @@ class Students(models.Model):
 class Fees(models.Model):
     student = models.ForeignKey(Students, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.BooleanField(default=False)  # True if paid, False if unpaid
+    status = models.BooleanField(default=False)  
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -86,8 +86,8 @@ class Libraryrecord(models.Model):
     student = models.ForeignKey('Students', on_delete=models.CASCADE)
     book = models.ForeignKey('Books', on_delete=models.CASCADE)
     borrowed_date = models.DateTimeField(default=timezone.now)
-    returned_date = models.DateTimeField(null=True, blank=True)  # Allow nulls until the book is returned
-    status = models.IntegerField(default=0)  # 0 for not returned, 1 for returned
+    returned_date = models.DateTimeField(null=True, blank=True) 
+    status = models.IntegerField(default=0)  
 
     def return_date_time():
         return timezone.now() + timezone.timedelta(days=7)

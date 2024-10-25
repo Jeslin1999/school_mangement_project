@@ -42,18 +42,18 @@
     document.getElementById('editLibraryForm').addEventListener('submit', function (event) {
         let isValid = true;
 
-        // Check required fields
+       
         this.querySelectorAll('input[required], select[required]').forEach(function (input) {
             if (!input.value.trim()) {
                 isValid = false;
-                input.classList.add('is-invalid'); // Highlight invalid inputs
+                input.classList.add('is-invalid');
             } else {
-                input.classList.remove('is-invalid'); // Remove highlight for valid inputs
+                input.classList.remove('is-invalid'); 
             }
         });
 
         if (!isValid) {
-            event.preventDefault(); // Prevent form submission if invalid
+            event.preventDefault();
             alert('Please fill out all required fields.');
         }
     });

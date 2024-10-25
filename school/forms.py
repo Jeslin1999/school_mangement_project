@@ -5,19 +5,19 @@ from .models import User, Staffs, Librarian, Students,Books, Libraryrecord, Fees
 class StaffForm(forms.ModelForm):
     class Meta:
         model = Staffs
-        fields = ['address']  # Include other fields you want to show
+        fields = ['address']  
 
 
 class UsersForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']  # Add other fields as needed
+        fields = ['username', 'first_name', 'last_name', 'email', 'password'] 
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password'])  # Hash the password
-        user.user_type = '2'  # Ensure the user type is set to Staff
+        user.set_password(self.cleaned_data['password'])  
+        user.user_type = '2' 
         if commit:
             user.save()
         return user
@@ -26,19 +26,19 @@ class UsersForm(forms.ModelForm):
 class LibrarianForm(forms.ModelForm):
     class Meta:
         model = Librarian
-        fields = ['address']  # Add other librarian-specific fields here
+        fields = ['address'] 
 
 
 class UserlForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']  # User fields
+        fields = ['username', 'first_name', 'last_name', 'email', 'password']  
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data['password'])  # Hash the password
-        user.user_type = '3'  # Set the user_type to Librarian
+        user.set_password(self.cleaned_data['password']) 
+        user.user_type = '3'  
         if commit:
             user.save()
         return user
@@ -49,7 +49,7 @@ class StudentForm(forms.ModelForm):
         model = Students
         fields = ['firstname', 'lastname', 'dob', 'email', 'gender', 'address', 'course','session_start_year', 'session_end_year']
         widgets = {
-            'session_start_year': forms.SelectDateWidget(),  # Optional: to show a date picker
+            'session_start_year': forms.SelectDateWidget(), 
             'session_end_year': forms.SelectDateWidget(),
         }
         
@@ -63,9 +63,9 @@ class BookForm(forms.ModelForm):
 class LibraryRecordForm(forms.ModelForm):
     class Meta:
         model = Libraryrecord
-        fields = ['student', 'book', 'borrowed_date']  # Include borrowed_date in fields
+        fields = ['student', 'book', 'borrowed_date']  
         widgets = {
-            'borrowed_date': DateInput(),  # Date input widget
+            'borrowed_date': DateInput(),  
         }
 
     student = forms.ModelChoiceField(queryset=Students.objects.all(), label="Select Student")
@@ -73,7 +73,6 @@ class LibraryRecordForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Set the default value of borrowed_date to today's date
         self.fields['borrowed_date']
 
        

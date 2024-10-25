@@ -85,7 +85,7 @@
 
 <script>
     function confirmDelete(recordId, bookTitle) {
-        // Use the built-in confirm dialog to ask for confirmation
+        
         const confirmMessage = `Are you sure you want to delete the record for "${bookTitle}"?`;
         if (confirm(confirmMessage)) {
             fetch("{% url 'delete_library_record' '0' %}".replace('0', recordId), {
@@ -99,7 +99,7 @@
             .then(data => {
                 if (data.success) {
                     alert(data.message);
-                    window.location.reload();  // Reload the page to see the changes
+                    window.location.reload();  
                 } else {
                     alert('Error deleting record.');
                 }
