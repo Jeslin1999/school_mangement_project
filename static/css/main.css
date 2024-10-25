@@ -1,0 +1,114 @@
+/* Base styling for body, card, and text elements */
+body {
+    background-color: #f7f7f9;
+}
+
+.card {
+    margin-top: 20px;
+    align-items: center;
+}
+
+/* Responsive font size for headings */
+h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* Table responsiveness */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Card responsiveness and hover effect */
+.cardd {
+    border: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cardd:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+.btn-primary,
+.btn-info,
+.btn-warning {
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Hover effects for buttons */
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-info:hover {
+    background-color: #007bff;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* Responsive styles using media queries */
+@media (max-width: 1200px) {
+    /* Large tablets and laptops */
+    .custom-card {
+        height: 220px;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    .table {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 992px) {
+    /* Medium tablets and small laptops */
+    h2 {
+        font-size: 1.6rem;
+    }
+    .card {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Tablets and large phones */
+    h2 {
+        font-size: 1.5rem;
+    }
+    .custom-card {
+        height: 200px;
+    }
+    .table th, .table td {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Small phones */
+    h2 {
+        font-size: 1.4rem;
+    }
+    .btn {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+    .table-responsive {
+        margin-bottom: 1rem;
+    }
+    .custom-card {
+        height: 180px;
+    }
+}
+
+
+    .custom-card {
+        margin: 15px; 
+    }

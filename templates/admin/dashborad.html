@@ -1,0 +1,54 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'shared/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Admin Dashboard</h2>
+    <div class="row justify-content-center text-center">
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card cardd shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title cardd-title">Staff Management</h5>
+                    <p class="card-text">Manage staff records and add new staff members.</p>
+                    <a href="{% url 'staff_dashboard' %}" class="btn btn-primary">Go to Staff</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card cardd shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title cardd-title">Librarian Dashboard</h5>
+                    <p class="card-text">Manage librarian activities and records.</p>
+                    <a href="{% url 'librarian_dashboard' %}" class="btn btn-primary">Go to Librarian</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card cardd shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title cardd-title">Student Management</h5>
+                    <p class="card-text">View and manage student records and fees.</p>
+                    <a href="{% url 'student_list' %}" class="btn btn-primary mb-2">Go to Students</a>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 mb-4">
+          <div class="card cardd shadow-sm h-100">
+              <div class="card-body">
+                  <h5 class="card-title cardd-title">Fees Management</h5>
+                  <p class="card-text">View and manage student records and fees.</p>
+                  <a href="{% url 'fees_list' %}" class="btn btn-primary mb-2">Go to Fees details</a>
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

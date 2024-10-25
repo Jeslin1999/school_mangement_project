@@ -1,0 +1,69 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <form method="get" action="{% url 'student_fees_history' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search_input" id="search_input" class="form-control" value="{{ search_input }}" placeholder="Enter Student ID or Name">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Fees List</h2>
+        <div>
+            <a href="{% url 'add_fees' %}" class="btn btn-info">Add Fess Details</a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>Student</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fee in fees_records %}
+                <tr>
+                    <td>{{ fee.student.firstname }} {{ fee.student.lastname }}</td>
+                    <td>{{ fee.amount }}</td>
+                    <td>{% if fee.status %}
+                        <span class="text-success">Paid</span>
+                    {% else %}
+                        <span class="text-danger">Pending</span>
+                    {% endif %}
+                    <td>
+                        <a href="{% url 'update_fees' fee.id %}" class="btn btn-sm btn-warning mx-1">Edit</a>
+                        <form action="{% url 'delete_fees' fee.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete the fees record for {{ fee.student.firstname }} {{ fee.student.lastname }}?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+      <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if fees_records.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ fees_records.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            <li class="page-item active"><span class="page-link">{{ fees_records.number }}</span></li>
+
+            {% if fees_records.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ fees_records.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ fees_records.paginator.num_pages }}">Last</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

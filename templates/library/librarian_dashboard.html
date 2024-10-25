@@ -1,0 +1,71 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block navbar %}
+{% include 'shared/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="main-panel container my-5">
+    <div class="content-wrapper mt-5">
+      <h2 class="text-center mb-4">Library Dashboard</h2>
+
+        <div class="row justify-content-center"> 
+            <!-- Books Card -->
+            <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+                <div class="card custom-card text-center">  
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="d-flex justify-content-center align-items-center mb-2">  
+                            <h2><p class="mb-0 text-muted ">Books List</p></h2>
+                        </div>
+                        <a href="{% url 'book_list' %}" class="btn btn-primary mt-3">Books Here</a>
+                        <canvas id="transactions-chart" class="mt-auto" height="65"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Students Card -->
+            <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+              <div class="card custom-card text-center">
+                  <div class="card-body d-flex flex-column justify-content-between">
+                      <div class="d-flex justify-content-center align-items-center mb-2">
+                          <h2><p class="mb-0 text-muted">Students List</p></h2>
+                      </div>
+                      <a href="{% url 'student_list' %}" class="btn btn-primary mt-3">View students</a>
+                      <canvas id="transactions-chart" class="mt-auto" height="65"></canvas>
+                  </div>
+              </div>
+          </div>
+
+            <!-- History Library Card -->
+            <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+              <div class="card custom-card text-center">
+                  <div class="card-body d-flex flex-column justify-content-between">
+                      <div class="d-flex justify-content-center align-items-center mb-2">
+                         <h2> <p class="mb-0 text-muted">Library History</p></h2>
+                      </div>
+                      <a href="{% url 'library_record_list' %}" class="btn btn-primary mt-3">View Records</a>
+                      <canvas id="transactions-chart" class="mt-auto" height="65"></canvas>
+                  </div>
+              </div>
+          </div>
+
+            <!-- Manage Books Card -->
+            <div class="col-md-6 col-xl-4 grid-margin stretch-card">
+              <div class="card custom-card text-center">
+                  <div class="card-body d-flex flex-column justify-content-between">
+                      <div class="d-flex justify-content-center align-items-center mb-2">
+                          <h2><p class="mb-0 text-muted">Manage Books</p></h2>
+                      </div>
+                      <a href="{% url 'add_library_record' %}" class="btn btn-success mt-3">Borrow Book</a>
+                      <a href="{% url 'add_library_record' %}" class="btn btn-danger mt-3">Return Book</a>
+                      <canvas id="transactions-chart" class="mt-auto" height="65"></canvas>
+                  </div>
+              </div>
+          </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

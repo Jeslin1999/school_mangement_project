@@ -1,0 +1,48 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'shared/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Borrow a Book</h1>
+    <form method="post" class="border p-4 rounded shadow">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields -->
+        
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Borrow Book</button>
+            <a href="{% url 'book_list' %}" class="btn btn-secondary">Back to Book List</a>
+        </div>
+    </form>
+
+    <!-- Validation Feedback -->
+    {% if form.errors %}
+        <div class="alert alert-danger mt-3">
+            <strong>Please fix the following errors:</strong>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .alert {
+        margin-top: 20px; /* Space above the alert */
+    }
+    .form-control.is-invalid {
+        border-color: #dc3545; /* Bootstrap danger color */
+    }
+</style>
+
+{% endblock %}

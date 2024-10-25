@@ -1,0 +1,94 @@
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .nav-link {
+        color: white !important;  
+        font-weight: bold;
+    }
+    .nav-link:hover {
+        color: #5a5f64 !important; 
+    }
+    
+    body {
+        background-color: rgb(232, 242, 239);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px;
+}
+</style>
+<header class="header-bottom">
+        <nav class="navbar navbar-light navbar-expand-sm bg-warning nav-link nav-link:hover">
+            <div class="container">
+            <img src="https://tse2.mm.bing.net/th?id=OIP.h6o1Yl4c1OMuP3yEuWuNdwHaED&pid=Api&P=0&h=220" alt="Profile Picture" class="profile-pic" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+
+            <a class="navbar-brand logo" href="">ABCD School</a>
+                            <button class="navbar-toggler header-button collapsed" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="las la-bars"></i>
+                </button>
+                        
+            <div class="navbar-collapse collapse" id="navbarSupportedContent" >
+                <ul class="navbar-nav nav-menu ms-auto">
+                    
+                                            <li class="nav-item">
+                        <a class="nav-link " href="{% url 'index' %}">Home</a>
+                    </li>
+                    {% if user.is_authenticated and user.user_type in '1' %}
+                    <li class="nav-item">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-2">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Add Members
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'add_staff' %}">Staff</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'add_librarian' %}">Librarian</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'add_student' %}">Students</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-2">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Members Details
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'staff_list' %}">VIew Staff</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'librarian_list' %}">View Librarian</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'student_list' %}">View Students</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}  
+                    {% if user.is_authenticated %}
+                    <li class="nav-item ">
+                        <li class="header-login__item nav-item">
+                            <a class="btn bg-danger btn--base btn--sm" href="{%url 'logout' %}"> <i class="las la-user"></i> Logout</a>
+                        </li>
+                    </li>
+                    {% endif %}   
+                
+                {% if not user.is_authenticated %}
+                            <li class="header-login__item nav-item">
+                                <a class="btn bg-danger btn--base btn--sm" href="{% url 'login' %}"> <i class="las la-user"></i> Login</a>
+                            </li>
+
+                            
+                     </ul>
+                {% endif %}
+               
+            </div>
+        </div>
+        </nav>
+</header>

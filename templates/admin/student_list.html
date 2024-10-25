@@ -1,0 +1,90 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Student List</h2>
+        <div>
+            <a href="{% url 'add_student' %}" class="btn btn-info">Add Student</a>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Email</th>
+                    <th>gender</th>
+                    <th>Course</th>
+                    <th>Start year</th>
+                    <th>End year</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr id="student-row-{{ student.id }}">
+                    <td>{{ student.firstname }}</td>
+                    <td>{{ student.lastname }}</td>
+                    <td>{{ student.dob }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.course }}</td>
+                    <td>{{ student.session_start_year }}</td>
+                    <td>{{ student.session_end_year }}</td>
+                    <td>
+                        <a href="{% url 'edit_student' student.id %}" class="btn btn-sm btn-warning mx-1">Edit</a>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDelete('{{ student.id }}', '{{ student.firstname }} {{ student.lastname }}')">Delete</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if students.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ students.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            <li class="page-item active"><span class="page-link">{{ students.number }}</span></li>
+
+            {% if students.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ students.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ students.paginator.num_pages }}">Last</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script>
+    function confirmDelete(studentId, studentName) {
+        if (confirm(`Are you sure you want to delete ${studentName}?`)) {
+            // Send AJAX request to delete the student
+            fetch(`{% url 'delete_student' 0 %}`.replace('0', studentId), {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the student's row from the table
+                    document.getElementById(`student-row-${studentId}`).remove();
+                    alert(data.message);  // Display success message
+                } else {
+                    alert(data.error);  // Display error message
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    }
+</script>
+
+{% endblock %}

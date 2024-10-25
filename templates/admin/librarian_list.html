@@ -1,0 +1,89 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'shared/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Librarian</h2>
+        <div>
+            <a href="{% url 'add_librarian' %}" class="btn btn-info">Add Librarian</a>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            {% if librarians %}
+                <table class="table table-striped table-bordered table-hover text-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Username</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for librarian in librarians %}
+                            <tr>
+                                <td>{{ librarian.admin.username }}</td>
+                                <td>{{ librarian.admin.first_name }}</td>
+                                <td>{{ librarian.admin.last_name }}</td>
+                                <td>{{ librarian.admin.email }}</td>
+                                <td>{{ librarian.address }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'edit_librarian' librarian.id %}" class="btn btn-sm btn-warning mx-1">Edit</a>
+                                    <button class="btn btn-sm btn-danger" onclick="confirmDelete('{{ librarian.id }}', '{{ librarian.admin.username }}')">Delete</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-center">No librarians found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            {% if librarians.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ librarians.previous_page_number }}">Previous</a></li>
+            {% endif %}
+
+            <li class="page-item active"><span class="page-link">{{ librarians.number }}</span></li>
+
+            {% if librarians.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ librarians.next_page_number }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ librarians.paginator.num_pages }}">Last</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script>
+    function confirmDelete(librarianId, username) {
+        if (confirm(`Are you sure you want to delete librarian ${username}?`)) {
+            // Send a POST request to delete
+            fetch("{% url 'delete_librarian' 0 %}".replace('0', librarianId), {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Failed to delete librarian.');
+                }
+            });
+        }
+    }
+</script>
+{% endblock %}

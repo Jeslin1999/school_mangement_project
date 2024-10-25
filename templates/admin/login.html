@@ -1,0 +1,59 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'shared/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Login</h2>
+    <div class="card cardl">
+        <div class="card-body">
+            <form method="post" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" name="username" id="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            {% if messages %}
+                <div class="alert alert-danger mt-3">
+                    <ul class="mb-0">
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        if (!username || !password) {
+            alert('Please fill out all fields.');
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+    }
+</script>
+
+<style>
+    /* Optional: Custom styling */
+    .card {
+        max-width: 400px;
+        margin: auto; /* Center the card */
+    }
+</style>
+{% endblock %}

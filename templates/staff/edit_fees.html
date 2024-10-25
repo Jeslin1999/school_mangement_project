@@ -1,0 +1,66 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block navbar %}
+    {% include 'shared/navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Edit Fees Record</h2>
+    <div class="card">
+        <div class="card-body">
+            <form id="editFeesForm" method="post" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <fieldset class="mb-4">
+                    <legend>Fees Information</legend>
+                    {{ form.as_p }}
+                </fieldset>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Update Record</button>
+                    <a href="{% url 'fees_list' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function validateForm() {
+        let isValid = true;
+        const form = document.getElementById('editFeesForm');
+
+        // Check if all input fields are filled out
+        Array.from(form.elements).forEach(input => {
+            if (input.type !== "submit" && input.type !== "button") {
+                if (input.value.trim() === "") {
+                    isValid = false;
+                    input.classList.add('is-invalid');  // Add Bootstrap class for invalid input
+                    // Create and show invalid feedback
+                    let feedback = input.nextElementSibling;
+                    if (feedback) {
+                        feedback.textContent = 'This field is required.'; // Custom message
+                        feedback.style.display = 'block'; // Show feedback
+                    }
+                } else {
+                    input.classList.remove('is-invalid');  // Remove invalid class if input is valid
+                    // Hide feedback if the input is valid
+                    let feedback = input.nextElementSibling;
+                    if (feedback) {
+                        feedback.style.display = 'none'; // Hide feedback
+                    }
+                }
+            }
+        });
+
+        if (!isValid) {
+            alert('Please fill out all fields before submitting.');
+        }
+
+        return isValid; // Prevent form submission if not valid
+    }
+</script>
+
+{% endblock %}
